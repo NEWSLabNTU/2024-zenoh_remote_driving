@@ -5,13 +5,25 @@ It's the project for the purpose of deploying the remote driving task over Zenon
 # Prerequisites
 
 - ROS2
-- Python3.8
+- Python 3.8
+- RUST >= 1.76.0
 
 - Testing Environment :
     - Operator : Ubuntu 20.04
     - Vehicle : F1EIGHTH (with Ubuntu 22.04)
 
-# Build
+
+# Build Dependency
+
+```bash=
+cd zenoh_remote_driving/
+git submodule update --init --recursive
+cd external/zenoh-plugin-ros2dds
+cargo build --release
+```
+
+
+# Build Project
 
 ```bash=
 cd zenoh_remote_driving
@@ -22,7 +34,7 @@ make build_proxy
 # Run
 
 > [!NOTE]
-> Before execution, the **VEHICLE_IP** and **OPERATOR_IP** variables in the scripts must be manually configured.
+> Before execution, the **VEHICLE_IP** and **OPERATOR_IP** variables in the **env.sh** must be manually configured.
 
 - Vehicle
 
