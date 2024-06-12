@@ -1,5 +1,5 @@
 # zenoh_remote_driving
-It's the project for the purpose of deploying the remote driving task over Zenon
+It's the project to deploy the remote driving task over Zenoh.
 
 
 # Prerequisites
