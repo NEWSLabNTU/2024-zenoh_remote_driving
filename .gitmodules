@@ -1,0 +1,4 @@
+[submodule "external/zenoh-plugin-ros2dds"]
+	path = external/zenoh-plugin-ros2dds
+	url = https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds.git
+	branch = 0.10.1-rc
