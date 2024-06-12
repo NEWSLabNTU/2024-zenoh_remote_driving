@@ -15,11 +15,21 @@ It's the project for the purpose of deploying the remote driving task over Zenon
 
 # Build Dependency
 
+- Make sure the [F1EIGHTH](https://github.com/NEWSLabNTU/F1EIGHT.git) repo is already built in the **$HOME/repos** directory.
+
+- Build `zenoh-plugin-ros2dds` with below commands :
+
 ```bash=
 cd zenoh_remote_driving/
 git submodule update --init --recursive
 cd external/zenoh-plugin-ros2dds
 cargo build --release
+```
+
+or
+
+```bash=
+sudo apt install zenoh-bridge-ros2dds
 ```
 
 
