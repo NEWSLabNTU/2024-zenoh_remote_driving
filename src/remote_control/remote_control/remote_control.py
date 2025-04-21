@@ -3,7 +3,6 @@ import time
 import json
 import argparse
 from zenoh_ros_type.autoware_auto_msgs import AckermannControlCommand, LongitudinalCommand, AckermannLateralCommand
-# from autoware_auto_control_msgs.msg import AckermannControlCommand
 from Adafruit_PCA9685 import PCA9685
 
 GET_CONTROL_KEY_EXPR = 'external/selected/control_cmd'
@@ -24,9 +23,9 @@ args = parser.parse_args()
 
 conf = zenoh.Config()
 if args.connect is not None:
-    conf.insert_json5(zenoh.config.CONNECT_KEY, json.dumps(args.connect))
+    conf.insert_json5("connect/endpoints", json.dumps(args.connect))
 if args.listen is not None:
-    conf.insert_json5(zenoh.config.LISTEN_KEY, json.dumps(args.listen))
+    conf.insert_json5("listen/endpoints", json.dumps(args.listen))
 
 
 # Initialize the PCA9685 using the default address (0x40).
@@ -50,20 +49,20 @@ class VehicleController():
         self.steering_max_left = 260
         self.steering_max_right = 500
         self.reverse = 0
-        
+
         self.topic_prefix = scope
         self.service_prefix = scope
-        
+
         def callback_control_cmd(sample):
-            
-            data = AckermannControlCommand.deserialize(sample.payload)
-            
+
+            data = AckermannControlCommand.deserialize(bytes(sample.payload))
+
             c_time = int(time.time() * 1000) % 100000
             recv_time = data.stamp.sec
             latency = c_time - recv_time
-            
+
             steering_value = int(-data.lateral.steering_tire_angle * 380) + self.steering_init
-            
+
             speed = int(data.longitudinal.speed) + self.stop
             if speed < self.stop:
                 if self.reverse == 0:
@@ -84,16 +83,15 @@ class VehicleController():
                 pwm.set_pwm(1, 0, steering_value)
 
             print(f'reverse" {self.reverse}, latency: {latency} ms, steering: {steering_value:.2f}, speed: {speed:.2f}')
-        
+
         ## Subscriber
         self.subscriber_control_cmd = self.session.declare_subscriber(GET_CONTROL_KEY_EXPR, callback_control_cmd)
-        
+
 
 def main():
-    
+
     session = zenoh.open(conf)
     vehicleController = VehicleController(session, 'v1')
-    
+
     while True:
         time.sleep(0.05)
-
