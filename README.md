@@ -22,6 +22,9 @@ make build
 
 # Run This Project
 
+## The Classical Way
+
+> [!NOTE]
 > WARNING: The instructions are outdated here.
 
 > [!NOTE]
@@ -45,4 +48,36 @@ bash ./script/vehicle.sh
 cd zenoh_remote_driving
 source env.sh
 bash ./script/operator.sh
+```
+
+## The New Way
+
+### Operator
+
+To run with default settings,
+
+```sh
+make run_pilot
+```
+
+To set the vehicle IP address,
+
+```sh
+make run_pilot VEHICLE_IP=X.Y.Z.W
+```
+
+
+
+### Vehicle
+
+To run with default settings,
+
+```sh
+make run_vehicle
+```
+
+To set the vehicle IP address,
+
+```sh
+make run_vehicle VEHICLE_IP=X.Y.Z.W
 ```
