@@ -1,4 +1,4 @@
-.PHONY: help build clean
+.PHONY: help build clean run_vehicle run_pilot
 
 help:
 	@echo 'Usage:'
@@ -10,6 +10,14 @@ build:
 	colcon build \
 		--symlink-install \
 		--cmake-args -DCMAKE_BUILD_TYPE=Release
+
+run_pilot:
+	. install/setup.sh && \
+	ros2 launch rdrive_launch pilot.launch.yaml
+
+run_vehicle:
+	. install/setup.sh && \
+	ros2 launch rdrive_launch vehicle.launch.yaml
 
 clean:
 	rm -rf build install log
