@@ -1,5 +1,7 @@
 .PHONY: help build clean run_vehicle run_pilot
 
+VEHICLE_IP = 192.168.10.101
+
 help:
 	@echo 'Usage:'
 	@echo '    make help     Show this help message'
@@ -15,14 +17,17 @@ build:
 		--cmake-args -DCMAKE_BUILD_TYPE=Release
 
 run_pilot:
+	export ROS_DOMAIN_ID=6 && \
 	. install/setup.sh && \
-	ros2 launch rdrive_launch pilot.launch.yaml
+	ros2 launch rdrive_launch pilot.launch.yaml vehicle_ip:=$(VEHICLE_IP)
 
 run_vehicle:
+	export ROS_DOMAIN_ID=9 && \
 	. install/setup.sh && \
-	ros2 launch rdrive_launch vehicle.launch.yaml
+	ros2 launch rdrive_launch vehicle.launch.yaml vehicle_ip:=$(VEHICLE_IP)
 
 clean:
 	rm -rf build install log
+
 # build_proxy:
 # 	cd src/ffmpeg/ && g++ proxy.cpp -o proxy
