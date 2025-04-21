@@ -1,47 +1,28 @@
-# zenoh_remote_driving
+# Remote Driving Demo
 It's the project to deploy the remote driving task over Zenoh.
 
 
 # Prerequisites
 
-- ROS2
-- Python 3.8
-- RUST >= 1.76.0
+The project was tested on Jetpack 6.0 on a NVIDIA AGX Orin box.
 
-- Testing Environment :
-    - Operator : Ubuntu 20.04
-    - Vehicle : F1EIGHTH (with Ubuntu 22.04)
+- ROS Humble ([link](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html))
+- Autoware 2025.02. It's recommended to install the Debian package
+  released by NEWSLAB
+  [here](https://github.com/NEWSLabNTU/autoware/releases/tag/rosdebian%2F2025.02-1).
+- `zenoh-bridge-ros2dds`. You can install the Debian package [here](https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds?tab=readme-ov-file#linux-debian).
+- Make sure the [F1EIGHTH](https://github.com/NEWSLabNTU/F1EIGHT.git)
+  repo is already built in the **$HOME/repos** directory.
 
+# Build This Project
 
-# Build Dependency
-
-- Make sure the [F1EIGHTH](https://github.com/NEWSLabNTU/F1EIGHT.git) repo is already built in the **$HOME/repos** directory.
-
-- Build `zenoh-plugin-ros2dds` with below commands :
-
-```bash=
-cd zenoh_remote_driving/
-git submodule update --init --recursive
-cd external/zenoh-plugin-ros2dds
-cargo build --release
+```bash
+make build
 ```
 
-or
+# Run This Project
 
-```bash=
-sudo apt install zenoh-bridge-ros2dds
-```
-
-
-# Build Project
-
-```bash=
-cd zenoh_remote_driving
-make build_project
-make build_proxy
-```
-
-# Run
+> WARNING: The instructions are outdated here.
 
 > [!NOTE]
 > Before execution, the **VEHICLE_IP** and **OPERATOR_IP** variables in the **env.sh** must be manually configured.
