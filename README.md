@@ -17,6 +17,7 @@ The project was tested on Jetpack 6.0 on a NVIDIA AGX Orin box.
 # Build This Project
 
 ```bash
+source ~/repos/F1EIGHTH/install/setup.bash
 make build
 ```
 
