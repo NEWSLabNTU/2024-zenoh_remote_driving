@@ -9,6 +9,7 @@ help:
 	@echo '    make clean    Remove built artifacts'
 
 prepare:
+	pip install Adafruit-PCA9685==1.0.1
 	rosdep install -y --from-paths src --ignore-src --rosdistro humble
 
 build:
