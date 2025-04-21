@@ -1,49 +1,89 @@
 launch:
+  - arg:
+      name: vehicle_ip
+      default: 192.168.10.101
+
+  - arg:
+      name: video_port
+      default: "8080"
+
+  - arg:
+      name: zenoh_port
+      default: "8001"
+
+  - arg:
+      name: vehicle_model
+      default: f1eighth_vehicle
+
+  - arg:
+      name: sensor_model
+      default: f1eighth_sensor_kit
+
+  # Run the Zenoh bridge
+  - executable:
+      cmd: zenoh-bridge-ros2dds -e tcp/$(var vehicle_ip):$(var zenoh_port)
+      output: screen
+      launch-prefix: env RUST_LOG=warn
+
+  # Run the video player
+  - executable:
+      cmd: ffplay -fflags nobuffer -flags low_delay -f mpegts tcp://$(var vehicle_ip):$(var video_port)?connect
+      output: screen
+
+  # Run the controller
   - node:
-      pkg: "zenoh_bridge_ros2dds"
-      exec: "zenoh-bridge-ros2dds"
-      name: "zenoh_bridge"
-      output: "screen"
-  - include:
-      file: "$(find-pkg-share autoware_launch)/launch/autoware.launch.xml"
-      arg:
-      -
-        name: vehicle_model
-        value: f1eighth_vehicle
-      -
-        name: sensor_model
-        value: f1eighth_sensor_kit
-      -
-        name: map_path
-        value: ./data/COSS-map-planning
-      -
-        name: launch_vehicle
-        value: "false"
-      -
-        name: launch_system
-        value: "false"
-      -
-        name: launch_map
-        value: "false"
-      -
-        name: launch_sensing
-        value: "false"
-      -
-        name: launch_sensing_driver
-        value: "false"
-      -
-        name: launch_localization
-        value: "false"
-      -
-        name: launch_perception
-        value: "false"
-      -
-        name: launch_planning
-        value: "false"
-      -
-        name: launch_control
-        value: "false"
-      -
-        name: rviz
-        value: "false"
-  
+      pkg: g923_control
+      exec: g923_control
+      name: g923_control
+      output: screen
+
+  # LiDAR point cloud viewer
+  - node:
+      pkg: remote_lidar
+      exec: remote_lidar
+      name: remote_lidar
+      output: screen
+
+  # Run Autoware
+  # - include:
+  #     file: "$(find-pkg-share autoware_launch)/launch/autoware.launch.xml"
+  #     arg:
+  #     -
+  #       name: vehicle_model
+  #       value: $(var vehicle_model)
+  #     -
+  #       name: sensor_model
+  #       value: $(var sensor_model)
+  #     -
+  #       name: map_path
+  #       value: ./data/COSS-map-planning
+  #     -
+  #       name: launch_vehicle
+  #       value: "false"
+  #     -
+  #       name: launch_system
+  #       value: "false"
+  #     -
+  #       name: launch_map
+  #       value: "false"
+  #     -
+  #       name: launch_sensing
+  #       value: "false"
+  #     -
+  #       name: launch_sensing_driver
+  #       value: "false"
+  #     -
+  #       name: launch_localization
+  #       value: "false"
+  #     -
+  #       name: launch_perception
+  #       value: "false"
+  #     -
+  #       name: launch_planning
+  #       value: "false"
+  #     -
+  #       name: launch_control
+  #       value: "true"
+  #     -
+  #       name: rviz
+  #       value: "true"
