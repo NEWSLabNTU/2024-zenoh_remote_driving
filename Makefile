@@ -6,6 +6,9 @@ help:
 	@echo '    make build    Build the project'
 	@echo '    make clean    Remove built artifacts'
 
+prepare:
+	rosdep install -y --from-paths src --ignore-src --rosdistro humble
+
 build:
 	colcon build \
 		--symlink-install \
