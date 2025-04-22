@@ -25,6 +25,7 @@ launch:
       cmd: zenoh-bridge-ros2dds -l tcp/$(var vehicle_ip):8001
       output: screen
       launch-prefix: env RUST_LOG=warn
+      respawn: "true"
 
   # Run the remote controller
   # - node:
@@ -40,10 +41,12 @@ launch:
       exec: publisher
       name: innovusion_driver
       output: screen
+      respawn: "true"
   
     # Run Zed driver
   - include:
       file: "$(find-pkg-share zed_wrapper)/launch/zed_camera.launch.py"
+      respawn: true
       arg:
       -
         name: camera_model
