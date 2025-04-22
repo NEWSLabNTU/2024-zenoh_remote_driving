@@ -46,7 +46,6 @@ launch:
     # Run Zed driver
   - include:
       file: "$(find-pkg-share zed_wrapper)/launch/zed_camera.launch.py"
-      respawn: true
       arg:
       -
         name: camera_model
