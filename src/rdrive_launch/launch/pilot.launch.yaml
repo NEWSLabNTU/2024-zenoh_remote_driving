@@ -24,11 +24,7 @@ launch:
       cmd: zenoh-bridge-ros2dds -e tcp/$(var vehicle_ip):$(var zenoh_port)
       output: screen
       launch-prefix: env RUST_LOG=warn
-
-  # Run the video player
-  - executable:
-      cmd: ffplay -fflags nobuffer -flags low_delay -f mpegts tcp://$(var vehicle_ip):$(var video_port)?connect
-      output: screen
+      respawn: "true"
 
   # Run the controller
   - node:
@@ -36,54 +32,13 @@ launch:
       exec: g923_control
       name: g923_control
       output: screen
+      respawn: "true"
 
-  # LiDAR point cloud viewer
+  # Visualizer
   - node:
-      pkg: remote_lidar
-      exec: remote_lidar
-      name: remote_lidar
+      pkg: rviz2
+      exec: rviz2
+      name: rviz2
       output: screen
-
-  # Run Autoware
-  # - include:
-  #     file: "$(find-pkg-share autoware_launch)/launch/autoware.launch.xml"
-  #     arg:
-  #     -
-  #       name: vehicle_model
-  #       value: $(var vehicle_model)
-  #     -
-  #       name: sensor_model
-  #       value: $(var sensor_model)
-  #     -
-  #       name: map_path
-  #       value: ./data/COSS-map-planning
-  #     -
-  #       name: launch_vehicle
-  #       value: "false"
-  #     -
-  #       name: launch_system
-  #       value: "false"
-  #     -
-  #       name: launch_map
-  #       value: "false"
-  #     -
-  #       name: launch_sensing
-  #       value: "false"
-  #     -
-  #       name: launch_sensing_driver
-  #       value: "false"
-  #     -
-  #       name: launch_localization
-  #       value: "false"
-  #     -
-  #       name: launch_perception
-  #       value: "false"
-  #     -
-  #       name: launch_planning
-  #       value: "false"
-  #     -
-  #       name: launch_control
-  #       value: "true"
-  #     -
-  #       name: rviz
-  #       value: "true"
+      # args: -d $(var rviz_config)
+      respawn: "true"
