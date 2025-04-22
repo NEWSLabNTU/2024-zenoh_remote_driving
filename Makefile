@@ -1,6 +1,6 @@
 .PHONY: help build clean run_vehicle run_pilot
 
-VEHICLE_IP = 192.168.10.101
+OPERATOR_IP = 192.168.225.71
 
 help:
 	@echo 'Usage:'
@@ -21,13 +21,13 @@ run_pilot:
 	export ROS_DOMAIN_ID=6 && \
 	. install/setup.sh && \
 	gnome-terminal -- ros2 run autoware_manual_control keyboard_control && \
-	ros2 launch rdrive_launch pilot.launch.yaml vehicle_ip:=$(VEHICLE_IP)
+	ros2 launch rdrive_launch pilot.launch.yaml
 
 
 run_vehicle:
 	export ROS_DOMAIN_ID=9 && \
 	. install/setup.sh && \
-	ros2 launch rdrive_launch vehicle.launch.yaml vehicle_ip:=$(VEHICLE_IP)
+	ros2 launch rdrive_launch vehicle.launch.yaml operator_ip:=$(OPERATOR_IP)
 
 clean:
 	rm -rf build install log

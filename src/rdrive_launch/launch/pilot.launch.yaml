@@ -1,9 +1,5 @@
 launch:
   - arg:
-      name: vehicle_ip
-      default: 192.168.10.101
-
-  - arg:
       name: video_port
       default: "8080"
 
@@ -21,7 +17,7 @@ launch:
 
   # Run the Zenoh bridge
   - executable:
-      cmd: zenoh-bridge-ros2dds -e tcp/$(var vehicle_ip):$(var zenoh_port) peer
+      cmd: zenoh-bridge-ros2dds -l tcp/.0.0.0.0:$(var zenoh_port) peer
       output: screen
       launch-prefix: env RUST_LOG=warn
       respawn: "true"
