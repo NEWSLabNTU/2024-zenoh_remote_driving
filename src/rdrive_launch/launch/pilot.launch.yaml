@@ -17,18 +17,18 @@ launch:
 
   # Run the Zenoh bridge
   - executable:
-      cmd: zenoh-bridge-ros2dds -l tcp/.0.0.0.0:$(var zenoh_port) peer
+      cmd: zenoh-bridge-ros2dds -l tcp/0.0.0.0:$(var zenoh_port) peer
       output: screen
       launch-prefix: env RUST_LOG=warn
       respawn: "true"
 
   # Run the controller
-  - node:
-      pkg: g923_control
-      exec: g923_control
-      name: g923_control
-      output: screen
-      respawn: "true"
+  # - node:
+  #     pkg: g923_control
+  #     exec: g923_control
+  #     name: g923_control
+  #     output: screen
+  #     respawn: "true"
 
   # Visualizer
   - node:
@@ -36,13 +36,13 @@ launch:
       exec: rviz2
       name: rviz2
       output: screen
-      # args: -d $(var rviz_config)
+      args: -d $(find-pkg-share rdrive_launch)/rviz/pilot.rviz
       respawn: "true"
 
-  # Run Zed driver
-  - include:
-      file: "$(find-pkg-share zed_display_rviz2)/launch/display_zed_cam.launch.py"
-      arg:
-      -
-        name: camera_model
-        value: zedx
+  # Run Zed viewer
+  # - include:
+  #     file: "$(find-pkg-share zed_display_rviz2)/launch/display_zed_cam.launch.py"
+  #     arg:
+  #     -
+  #       name: camera_model
+  #       value: zedx
