@@ -22,7 +22,7 @@ launch:
 
   # Run the Zenoh bridge
   - executable:
-      cmd: zenoh-bridge-ros2dds -l tcp/$(var vehicle_ip):8001
+      cmd: zenoh-bridge-ros2dds -l tcp/$(var vehicle_ip):8001 peer
       output: screen
       launch-prefix: env RUST_LOG=warn
       respawn: "true"
