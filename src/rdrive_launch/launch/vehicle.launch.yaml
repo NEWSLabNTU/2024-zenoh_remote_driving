@@ -25,72 +25,52 @@ launch:
       launch-prefix: env RUST_LOG=warn
       respawn: "true"
 
-  # Run the remote controller
-  # - node:
-  #     pkg: remote_control
-  #     exec: remote_control
-  #     name: remote_control
-  #     args:  -l tcp/$(var vehicle_ip):8002
-  #     output: screen
-
-  # Run the LiDAR driver
-  - node:
-      pkg: innovusion
-      exec: publisher
-      name: innovusion_driver
-      output: screen
-      respawn: "true"
-  
-    # Run Zed driver
+  # Run Autoware
   - include:
-      file: "$(find-pkg-share zed_wrapper)/launch/zed_camera.launch.py"
+      file: "$(find-pkg-share autoware_launch)/launch/autoware.launch.xml"
       arg:
       -
-        name: camera_model
-        value: zedx
-
-  
-
-  # Run Autoware
-  # - include:
-  #     file: "$(find-pkg-share autoware_launch)/launch/autoware.launch.xml"
-  #     arg:
-  #     -
-  #       name: vehicle_model
-  #       value: $(var vehicle_model)
-  #     -
-  #       name: sensor_model
-  #       value: $(var sensor_model)
-  #     -
-  #       name: map_path
-  #       value: ./data/COSS-map-planning
-  #     -
-  #       name: launch_vehicle
-  #       value: "false"
-  #     -
-  #       name: launch_system
-  #       value: "false"
-  #     -
-  #       name: launch_map
-  #       value: "false"
-  #     -
-  #       name: launch_sensing
-  #       value: "false"
-  #     -
-  #       name: launch_sensing_driver
-  #       value: "false"
-  #     -
-  #       name: launch_localization
-  #       value: "false"
-  #     -
-  #       name: launch_perception
-  #       value: "false"
-  #     -
-  #       name: launch_planning
-  #       value: "false"
-  #     -
-  #       name: launch_control
-  #       value: "false"
-  #     -
-  #       name: rviz
-  #       value: "false"
+        name: vehicle_model
+        value: $(var vehicle_model)
+      -
+        name: sensor_model
+        value: $(var sensor_model)
+      -
+        name: map_path
+        value: ./data/COSS-map-planning
+      -
+        name: launch_vehicle
+        value: "true"
+      -
+        name: launch_system
+        value: "false"
+      -
+        name: launch_map
+        value: "false"
+      -
+        name: launch_sensing
+        value: "true"
+      -
+        name: launch_sensing_driver
+        value: "true"
+      -
+        name: launch_localization
+        value: "false"
+      -
+        name: launch_perception
+        value: "false"
+      -
+        name: launch_planning
+        value: "false"
+      -
+        name: launch_control
+        value: "true"
+      -
+        name: launch_api
+        value: "false"
+      -
+        name: launch_system_monitor
+        value: "false"
+      -
+        name: rviz
+        value: "false"
