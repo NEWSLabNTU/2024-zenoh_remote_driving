@@ -42,3 +42,11 @@ launch:
       output: screen
       # args: -d $(var rviz_config)
       respawn: "true"
+
+  # Run Zed driver
+  - include:
+      file: "$(find-pkg-share zed_display_rviz2)/launch/display_zed_cam.launch.py"
+      arg:
+      -
+        name: camera_model
+        value: zedx
