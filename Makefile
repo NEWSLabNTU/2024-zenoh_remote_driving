@@ -20,7 +20,9 @@ build:
 run_pilot:
 	export ROS_DOMAIN_ID=6 && \
 	. install/setup.sh && \
+	gnome-terminal -- ros2 run autoware_manual_control keyboard_control && \
 	ros2 launch rdrive_launch pilot.launch.yaml vehicle_ip:=$(VEHICLE_IP)
+
 
 run_vehicle:
 	export ROS_DOMAIN_ID=9 && \
