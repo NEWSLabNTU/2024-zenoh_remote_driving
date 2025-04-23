@@ -23,7 +23,54 @@ make build
 
 # Run This Project
 
-## The Classical Way
+## The New Way
+
+We assumes the following IP assignments. Make sure your IP address is
+correctly configured.
+
+- Operator IP: 192.168.225.71
+- Vehicle IP: 192.168.225.73
+
+Source the setup scripts whenever you start a terminal on both vehicle
+and pilot sides.
+
+```bash
+source ~/zenoh_remote_driving/install/setup.bash
+```
+
+### Step 1: Vehicle
+
+To run with default settings,
+
+```sh
+make run_vehicle
+```
+
+Or to set the operator IP address to connect to,
+
+```sh
+make run_vehicle OPERATOR_IP=X.Y.Z.W
+```
+
+### Step 2: Operator
+
+First, run the pilot system. It will prompt a RViz window. You can
+wait a few seconds until the point cloud and video show up.
+
+```sh
+make run_pilot
+```
+
+### Step 3: Run Keyboard Controller
+
+**Connect to the vehicle via SSH.** Open the keyboard controller.
+
+```
+ssh jetson@192.168.225.73
+make controller
+```
+
+# Run This Project (Classical Way)
 
 > [!NOTE]
 > WARNING: The instructions are outdated here.
@@ -49,36 +96,4 @@ bash ./script/vehicle.sh
 cd zenoh_remote_driving
 source env.sh
 bash ./script/operator.sh
-```
-
-## The New Way
-
-### Operator
-
-To run with default settings,
-
-```sh
-make run_pilot
-```
-
-To set the vehicle IP address,
-
-```sh
-make run_pilot VEHICLE_IP=X.Y.Z.W
-```
-
-
-
-### Vehicle
-
-To run with default settings,
-
-```sh
-make run_vehicle
-```
-
-To set the vehicle IP address,
-
-```sh
-make run_vehicle VEHICLE_IP=X.Y.Z.W
 ```
