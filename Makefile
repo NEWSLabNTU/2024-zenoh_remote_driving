@@ -30,7 +30,7 @@ run_vehicle:
 
 controller:
 	. install/setup.sh && \
-	gnome-terminal -- ros2 run autoware_manual_control keyboard_control --ros-args --remap /external/selected/control_cmd:=/control/command/control_cmd
+	ros2 run autoware_manual_control keyboard_control --ros-args --remap /external/selected/control_cmd:=/control/command/control_cmd
 
 
 clean:
