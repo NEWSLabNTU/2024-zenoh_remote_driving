@@ -64,7 +64,7 @@ launch:
         value: "false"
       -
         name: launch_control
-        value: "true"
+        value: "false"
       -
         name: launch_api
         value: "false"
