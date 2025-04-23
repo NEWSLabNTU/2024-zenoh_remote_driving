@@ -11,6 +11,7 @@ setup(
             [f'resource/{package_name}']),
         (f'share/{package_name}', ['package.xml']),
         (f'share/{package_name}/launch', ['launch/pilot.launch.yaml', 'launch/vehicle.launch.yaml']),
+        (f'share/{package_name}/rviz', ['rviz/pilot.rviz']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
